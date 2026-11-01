@@ -162,3 +162,291 @@ if (navToggle && nav) {
 }
 
 updateI18n();
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   DAR EL IHSAN — REGISTRATION REQUESTS & PUBLIC INQUIRIES CLIENT
+   ═══════════════════════════════════════════════════════════════════ */
+
+(function () {
+  'use strict';
+
+  var regModal = document.getElementById('regModal');
+  var inqModal = document.getElementById('inqModal');
+  var btnHeroReg = document.getElementById('btnHeroReg');
+  var btnHeroInq = document.getElementById('btnHeroInq');
+  var navBtnReg = document.getElementById('navBtnReg');
+  var navBtnInq = document.getElementById('navBtnInq');
+
+  var btnCloseRegModal = document.getElementById('btnCloseRegModal');
+  var btnCancelReg = document.getElementById('btnCancelReg');
+  var btnCloseInqModal = document.getElementById('btnCloseInqModal');
+  var btnCancelInq = document.getElementById('btnCancelInq');
+
+  var regForm = document.getElementById('regForm');
+  var inqForm = document.getElementById('inqForm');
+  var regSuccessCard = document.getElementById('regSuccessCard');
+  var inqSuccessCard = document.getElementById('inqSuccessCard');
+
+  var regChildDob = document.getElementById('reg_child_dob');
+  var regChildAge = document.getElementById('reg_child_age');
+  var regAlertBox = document.getElementById('regAlertBox');
+  var inqAlertBox = document.getElementById('inqAlertBox');
+
+  function openReg() {
+    if (!regModal) return;
+    regModal.hidden = false;
+    if (regForm) { regForm.hidden = false; regForm.reset(); }
+    if (regSuccessCard) regSuccessCard.hidden = true;
+    if (regAlertBox) regAlertBox.hidden = true;
+    if (regChildAge) regChildAge.value = '';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeReg() {
+    if (!regModal) return;
+    regModal.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  function openInq() {
+    if (!inqModal) return;
+    inqModal.hidden = false;
+    if (inqForm) { inqForm.hidden = false; inqForm.reset(); }
+    if (inqSuccessCard) inqSuccessCard.hidden = true;
+    if (inqAlertBox) inqAlertBox.hidden = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeInq() {
+    if (!inqModal) return;
+    inqModal.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  if (btnHeroReg) btnHeroReg.addEventListener('click', openReg);
+  if (btnHeroInq) btnHeroInq.addEventListener('click', openInq);
+  if (navBtnReg) navBtnReg.addEventListener('click', function (e) { e.preventDefault(); openReg(); });
+  if (navBtnInq) navBtnInq.addEventListener('click', function (e) { e.preventDefault(); openInq(); });
+
+  if (btnCloseRegModal) btnCloseRegModal.addEventListener('click', closeReg);
+  if (btnCancelReg) btnCancelReg.addEventListener('click', closeReg);
+  if (btnCloseInqModal) btnCloseInqModal.addEventListener('click', closeInq);
+  if (btnCancelInq) btnCancelInq.addEventListener('click', closeInq);
+
+  var btnDoneReg = document.getElementById('btnDoneReg');
+  if (btnDoneReg) btnDoneReg.addEventListener('click', closeReg);
+  var btnDoneInq = document.getElementById('btnDoneInq');
+  if (btnDoneInq) btnDoneInq.addEventListener('click', closeInq);
+
+  if (regModal) {
+    regModal.addEventListener('click', function (e) {
+      if (e.target === regModal) closeReg();
+    });
+  }
+  if (inqModal) {
+    inqModal.addEventListener('click', function (e) {
+      if (e.target === inqModal) closeInq();
+    });
+  }
+
+  // حساب العمر تلقائياً فور إدخال تاريخ الميلاد
+  if (regChildDob && regChildAge) {
+    regChildDob.addEventListener('input', function () {
+      var val = regChildDob.value;
+      if (!val) { regChildAge.value = ''; return; }
+      try {
+        var birth = new Date(val);
+        var today = new Date();
+        var age = today.getFullYear() - birth.getFullYear();
+        var m = today.getMonth() - birth.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+        if (age >= 0 && !isNaN(age)) {
+          regChildAge.value = age + ' سنة (' + (age < 3 ? 'مرحلة التدخل المبكر' : (age < 6 ? 'ما قبل التمدرس' : (age < 15 ? 'سن التمدرس' : 'سن التأهيل والتمهين'))) + ')';
+        } else {
+          regChildAge.value = 'تاريخ غير صالح';
+        }
+      } catch (e) {
+        regChildAge.value = '';
+      }
+    });
+  }
+
+  // إرسال طلب التسجيل إلى خادم Supabase
+  if (regForm) {
+    regForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      if (regAlertBox) regAlertBox.hidden = true;
+
+      // فحص Honeypot للحماية من السبام
+      var hp = regForm.querySelector('input[name="website_url_check"]');
+      if (hp && hp.value) return; // Silent discard for bot
+
+      var gName = document.getElementById('reg_guardian_name').value.trim();
+      var gPhone = document.getElementById('reg_guardian_phone').value.trim();
+      var gEmail = document.getElementById('reg_guardian_email').value.trim();
+      var residence = document.getElementById('reg_residence').value.trim();
+      var cName = document.getElementById('reg_child_name').value.trim();
+      var cDob = document.getElementById('reg_child_dob').value;
+      var disType = document.getElementById('reg_disability').value;
+      var extra = document.getElementById('reg_extra_info').value.trim();
+      var consent = document.getElementById('reg_consent').checked;
+
+      if (!gName || !gPhone || !residence || !cName || !cDob || !disType) {
+        if (regAlertBox) {
+          regAlertBox.textContent = 'يرجى ملء جميع الحقول الإلزامية المطلوبة (*).';
+          regAlertBox.className = 'form-alert is-err';
+          regAlertBox.hidden = false;
+        }
+        return;
+      }
+
+      if (!consent) {
+        if (regAlertBox) {
+          regAlertBox.textContent = 'يجب الموافقة على إشعار الخصوصية وشروط دراسة الطلب للمتابعة.';
+          regAlertBox.className = 'form-alert is-err';
+          regAlertBox.hidden = false;
+        }
+        return;
+      }
+
+      var btnSubmit = document.getElementById('btnSubmitReg');
+      if (btnSubmit) { btnSubmit.disabled = true; btnSubmit.textContent = 'جارٍ إرسال الطلب…'; }
+
+      // توليد رقم مرجعي آمن
+      var randomCode = 'REQ-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+
+      var payload = {
+        reference_code: randomCode,
+        guardian_name: gName,
+        guardian_phone: gPhone,
+        guardian_email: gEmail,
+        residence_wilaya: 'غرداية',
+        residence_commune: residence,
+        child_name: cName,
+        child_birth_date: cDob,
+        disability_type: disType,
+        additional_information: extra,
+        status: 'new',
+        privacy_consent: true,
+        created_at: new Date().toISOString()
+      };
+
+      try {
+        var cfg = (window.DE_CONFIG) || {
+          supabaseUrl: 'https://qgjddtylriqdwvpihvmi.supabase.co',
+          supabaseKey: 'sb_publishable_8mgO37k9jB9_Dg4OQTfynw_NBC0gLjK'
+        };
+
+        var res = await fetch(cfg.supabaseUrl + '/rest/v1/registration_requests', {
+          method: 'POST',
+          headers: {
+            'apikey': cfg.supabaseKey,
+            'Authorization': 'Bearer ' + cfg.supabaseKey,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        // حفظ محلي احتياطي
+        try {
+          var curLocal = JSON.parse(localStorage.getItem('de_local_reg_requests') || '[]');
+          curLocal.unshift(payload);
+          localStorage.setItem('de_local_reg_requests', JSON.stringify(curLocal));
+        } catch (eStorage) {}
+
+        regForm.hidden = true;
+        var displayEl = document.getElementById('regRefCodeDisplay');
+        if (displayEl) displayEl.textContent = randomCode;
+        if (regSuccessCard) regSuccessCard.hidden = false;
+
+      } catch (err) {
+        if (regAlertBox) {
+          regAlertBox.textContent = 'حدث خطأ في الاتصال، يرجى المحاولة لاحقاً أو الاتصال المباشر بإدارة المركز.';
+          regAlertBox.className = 'form-alert is-err';
+          regAlertBox.hidden = false;
+        }
+      } finally {
+        if (btnSubmit) { btnSubmit.disabled = false; btnSubmit.textContent = 'إرسال طلب التسجيل'; }
+      }
+    });
+  }
+
+  // إرسال استفسار عام
+  if (inqForm) {
+    inqForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      if (inqAlertBox) inqAlertBox.hidden = true;
+
+      var hp = inqForm.querySelector('input[name="inq_honeypot_field"]');
+      if (hp && hp.value) return;
+
+      var name = document.getElementById('inq_name').value.trim();
+      var phone = document.getElementById('inq_phone').value.trim();
+      var email = document.getElementById('inq_email').value.trim();
+      var subject = document.getElementById('inq_subject').value.trim();
+      var message = document.getElementById('inq_message').value.trim();
+      var consent = document.getElementById('inq_consent').checked;
+
+      if (!name || !phone || !subject || !message) {
+        if (inqAlertBox) {
+          inqAlertBox.textContent = 'يرجى ملء جميع الحقول المطلوبة (*).';
+          inqAlertBox.className = 'form-alert is-err';
+          inqAlertBox.hidden = false;
+        }
+        return;
+      }
+
+      var btnSubmit = document.getElementById('btnSubmitInq');
+      if (btnSubmit) { btnSubmit.disabled = true; btnSubmit.textContent = 'جارٍ إرسال الاستفسار…'; }
+
+      var payload = {
+        name: name,
+        phone: phone,
+        email: email,
+        subject: subject,
+        message: message,
+        status: 'new',
+        privacy_consent: consent,
+        created_at: new Date().toISOString()
+      };
+
+      try {
+        var cfg = (window.DE_CONFIG) || {
+          supabaseUrl: 'https://qgjddtylriqdwvpihvmi.supabase.co',
+          supabaseKey: 'sb_publishable_8mgO37k9jB9_Dg4OQTfynw_NBC0gLjK'
+        };
+
+        await fetch(cfg.supabaseUrl + '/rest/v1/public_inquiries', {
+          method: 'POST',
+          headers: {
+            'apikey': cfg.supabaseKey,
+            'Authorization': 'Bearer ' + cfg.supabaseKey,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        try {
+          var curLocalInq = JSON.parse(localStorage.getItem('de_local_inquiries') || '[]');
+          curLocalInq.unshift(payload);
+          localStorage.setItem('de_local_inquiries', JSON.stringify(curLocalInq));
+        } catch (eStorage) {}
+
+        inqForm.hidden = true;
+        if (inqSuccessCard) inqSuccessCard.hidden = false;
+
+      } catch (err) {
+        if (inqAlertBox) {
+          inqAlertBox.textContent = 'تعذر إرسال الاستفسار حالياً، يرجى المحاولة مجدداً.';
+          inqAlertBox.className = 'form-alert is-err';
+          inqAlertBox.hidden = false;
+        }
+      } finally {
+        if (btnSubmit) { btnSubmit.disabled = false; btnSubmit.textContent = 'إرسال الاستفسار'; }
+      }
+    });
+  }
+})();
