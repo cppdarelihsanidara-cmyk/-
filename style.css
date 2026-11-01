@@ -1482,3 +1482,42 @@ footer p {
   color: #DC2626;
   border: 1px solid #FCA5A5;
 }
+
+
+.cta-bottom-sec {
+  background: #F4F7FB;
+  padding: 40px 0;
+  border-top: 1px solid #E2E8F0;
+}
+.cta-bottom-card {
+  background: linear-gradient(135deg, #102F50, #174D78);
+  border-radius: 20px;
+  padding: 32px 36px;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  box-shadow: 0 10px 30px rgba(16, 47, 80, 0.15);
+}
+.cta-bottom-text {
+  flex: 1;
+  min-width: 280px;
+}
+.cta-bottom-title {
+  margin: 0;
+  font-size: 1.45rem;
+  color: #FFFFFF;
+}
+.cta-bottom-sub {
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  color: #EAF2FA;
+  opacity: 0.95;
+}
+.cta-bottom-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}

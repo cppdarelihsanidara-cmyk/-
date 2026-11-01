@@ -225,6 +225,11 @@ updateI18n();
   }
 
   if (btnHeroReg) btnHeroReg.addEventListener('click', openReg);
+  var btnBottomReg = document.getElementById('btnBottomReg');
+  var btnBottomInq = document.getElementById('btnBottomInq');
+  if (btnBottomReg) btnBottomReg.addEventListener('click', openReg);
+  if (btnBottomInq) btnBottomInq.addEventListener('click', openInq);
+
   if (btnHeroInq) btnHeroInq.addEventListener('click', openInq);
   if (navBtnReg) navBtnReg.addEventListener('click', function (e) { e.preventDefault(); openReg(); });
   if (navBtnInq) navBtnInq.addEventListener('click', function (e) { e.preventDefault(); openInq(); });
