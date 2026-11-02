@@ -194,35 +194,60 @@ updateI18n();
   var inqAlertBox = document.getElementById('inqAlertBox');
 
   function openReg() {
-    if (!regModal) return;
-    regModal.hidden = false;
-    if (regForm) { regForm.hidden = false; regForm.reset(); }
-    if (regSuccessCard) regSuccessCard.hidden = true;
-    if (regAlertBox) regAlertBox.hidden = true;
-    if (regChildAge) regChildAge.value = '';
+    var rm = document.getElementById('regModal') || regModal;
+    if (!rm) return;
+    rm.hidden = false;
+    rm.removeAttribute('hidden');
+    rm.style.display = 'flex';
+    var rf = document.getElementById('regForm') || regForm;
+    var sc = document.getElementById('regSuccessCard') || regSuccessCard;
+    var ab = document.getElementById('regAlertBox') || regAlertBox;
+    var age = document.getElementById('reg_child_age') || regChildAge;
+    if (rf) { rf.hidden = false; rf.removeAttribute('hidden'); rf.style.display = 'block'; rf.reset(); }
+    if (sc) { sc.hidden = true; sc.setAttribute('hidden', ''); sc.style.display = 'none'; }
+    if (ab) { ab.hidden = true; ab.setAttribute('hidden', ''); ab.style.display = 'none'; }
+    if (age) age.value = '';
     document.body.style.overflow = 'hidden';
   }
 
   function closeReg() {
-    if (!regModal) return;
-    regModal.hidden = true;
+    var rm = document.getElementById('regModal') || regModal;
+    if (!rm) return;
+    rm.hidden = true;
+    rm.setAttribute('hidden', '');
+    rm.style.display = 'none';
     document.body.style.overflow = '';
   }
 
   function openInq() {
-    if (!inqModal) return;
-    inqModal.hidden = false;
-    if (inqForm) { inqForm.hidden = false; inqForm.reset(); }
-    if (inqSuccessCard) inqSuccessCard.hidden = true;
-    if (inqAlertBox) inqAlertBox.hidden = true;
+    var im = document.getElementById('inqModal') || inqModal;
+    if (!im) return;
+    im.hidden = false;
+    im.removeAttribute('hidden');
+    im.style.display = 'flex';
+    var inf = document.getElementById('inqForm') || inqForm;
+    var sc = document.getElementById('inqSuccessCard') || inqSuccessCard;
+    var ab = document.getElementById('inqAlertBox') || inqAlertBox;
+    if (inf) { inf.hidden = false; inf.removeAttribute('hidden'); inf.style.display = 'block'; inf.reset(); }
+    if (sc) { sc.hidden = true; sc.setAttribute('hidden', ''); sc.style.display = 'none'; }
+    if (ab) { ab.hidden = true; ab.setAttribute('hidden', ''); ab.style.display = 'none'; }
     document.body.style.overflow = 'hidden';
   }
 
   function closeInq() {
-    if (!inqModal) return;
-    inqModal.hidden = true;
+    var im = document.getElementById('inqModal') || inqModal;
+    if (!im) return;
+    im.hidden = true;
+    im.setAttribute('hidden', '');
+    im.style.display = 'none';
     document.body.style.overflow = '';
   }
+
+  // Global exposure for immediate click access
+  window.openRegModal = openReg;
+  window.closeRegModal = closeReg;
+  window.openInqModal = openInq;
+  window.closeInqModal = closeInq;
 
   if (btnHeroReg) btnHeroReg.addEventListener('click', openReg);
   var btnBottomReg = document.getElementById('btnBottomReg');
@@ -293,7 +318,7 @@ updateI18n();
       var residence = document.getElementById('reg_residence').value.trim();
       var cName = document.getElementById('reg_child_name').value.trim();
       var cDob = document.getElementById('reg_child_dob').value;
-      var disType = document.getElementById('reg_disability').value;
+      var disType = (document.getElementById('reg_disability') ? document.getElementById('reg_disability').value.trim() : '');
       var extra = document.getElementById('reg_extra_info').value.trim();
       var consent = document.getElementById('reg_consent').checked;
 

@@ -163,11 +163,11 @@
           <p class="cta-bottom-sub">نستقبل طلبات تسجيل الأطفال الجدد واستفسارات الأولياء والمهتمين بمرافقة أطفالنا وفق النموذج البيداغوجي المعتمد.</p>
         </div>
         <div class="cta-bottom-btns">
-          <button type="button" class="btn-cta-gold" id="btnBottomReg">
+          <button type="button" class="btn-cta-gold" id="btnBottomReg" onclick="window.openRegModal && window.openRegModal()">
             <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14h6"/><path d="M9 18h6"/><path d="M9 10h6"/></svg>
             <span>طلب تسجيل جديد</span>
           </button>
-          <button type="button" class="btn-cta-light" id="btnBottomInq">
+          <button type="button" class="btn-cta-light" id="btnBottomInq" onclick="window.openInqModal && window.openInqModal()">
             <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             <span>تقديم استفسار</span>
           </button>
@@ -210,7 +210,7 @@
           <h2 id="regModalTitle">استمارة طلب تسجيل أولي جديد</h2>
           <p class="muted">مخصصة للأولياء الراغبين في تسجيل أبنائهم في جمعية دار الإحسان</p>
         </div>
-        <button type="button" class="btn-modal-close" id="btnCloseRegModal" aria-label="إغلاق">&times;</button>
+        <button type="button" class="btn-modal-close" id="btnCloseRegModal" onclick="window.closeRegModal && window.closeRegModal()" aria-label="إغلاق">&times;</button>
       </div>
 
       <form id="regForm" class="public-modal-form" novalidate>
@@ -253,14 +253,7 @@
           </label>
           <label class="form-fld">
             <span>نوع الإعاقة أو اضطراب النمو <em class="req">*</em></span>
-            <select id="reg_disability" required>
-              <option value="">— اختر نوع الإعاقة / الاضطراب —</option>
-              <option value="التوحد">التوحد</option>
-              <option value="متلازمة داون">متلازمة داون</option>
-              <option value="الإعاقة الذهنية">الإعاقة الذهنية</option>
-              <option value="اضطرابات النمو">اضطرابات النمو</option>
-              <option value="حالات أخرى">حالات أخرى</option>
-            </select>
+            <input type="text" id="reg_disability" placeholder="اكتب نوع الإعاقة أو الاضطراب (مثال: التوحد، متلازمة داون، تأخر ذهني...)" required>
           </label>
           <label class="form-fld wide">
             <span>معلومات وتوجيهات إضافية عن الحالة (اختياري)</span>
@@ -279,7 +272,7 @@
         <div id="regAlertBox" class="form-alert" hidden></div>
 
         <div class="modal-form-actions">
-          <button type="button" class="btn-cancel" id="btnCancelReg">إلغاء</button>
+          <button type="button" class="btn-cancel" id="btnCancelReg" onclick="window.closeRegModal && window.closeRegModal()">إلغاء</button>
           <button type="submit" class="btn-submit-gold" id="btnSubmitReg">
             <span>إرسال طلب التسجيل</span>
           </button>
@@ -296,7 +289,7 @@
           <strong id="regRefCodeDisplay">REQ-2026-0000</strong>
         </div>
         <p class="muted small">يرجى الاحتفاظ بهذا الرقم لمتابعة التواصل مع إدارة المركز.</p>
-        <button type="button" class="btn-cta-gold" id="btnDoneReg" style="margin-top:16px;">تم</button>
+        <button type="button" class="btn-cta-gold" id="btnDoneReg" onclick="window.closeRegModal && window.closeRegModal()" style="margin-top:16px;">تم</button>
       </div>
     </div>
   </div>
@@ -309,7 +302,7 @@
           <h2 id="inqModalTitle">تقديم استفسار لإدارة دار الإحسان</h2>
           <p class="muted">نسعد بالإجابة عن كافة تساؤلاتكم ومرافقتكم</p>
         </div>
-        <button type="button" class="btn-modal-close" id="btnCloseInqModal" aria-label="إغلاق">&times;</button>
+        <button type="button" class="btn-modal-close" id="btnCloseInqModal" onclick="window.closeInqModal && window.closeInqModal()" aria-label="إغلاق">&times;</button>
       </div>
 
       <form id="inqForm" class="public-modal-form" novalidate>
@@ -348,7 +341,7 @@
         <div id="inqAlertBox" class="form-alert" hidden></div>
 
         <div class="modal-form-actions">
-          <button type="button" class="btn-cancel" id="btnCancelInq">إلغاء</button>
+          <button type="button" class="btn-cancel" id="btnCancelInq" onclick="window.closeInqModal && window.closeInqModal()">إلغاء</button>
           <button type="submit" class="btn-submit-gold" id="btnSubmitInq">
             <span>إرسال الاستفسار</span>
           </button>
@@ -359,7 +352,7 @@
         <div class="success-icon-box">✓</div>
         <h3>تم استلام استفساركم بنجاح</h3>
         <p>نشكركم على تواصلكم مع جمعية دار الإحسان. سيتم الرد على استفساركم والتواصل معكم في أقرب وقت.</p>
-        <button type="button" class="btn-cta-gold" id="btnDoneInq" style="margin-top:16px;">إغلاق</button>
+        <button type="button" class="btn-cta-gold" id="btnDoneInq" onclick="window.closeInqModal && window.closeInqModal()" style="margin-top:16px;">إغلاق</button>
       </div>
     </div>
   </div>
