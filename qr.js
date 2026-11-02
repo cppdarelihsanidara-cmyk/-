@@ -29,17 +29,10 @@
     setField('f_num', d.membership_no || '—');
     setField('f_name', d.full_name);
     setField('f_center', d.centerLabel || centerName(d.center));
-    if (d.section) { setField('f_section', d.section); if ($('#row_section')) $('#row_section').hidden = false; }
-    if (d.dob) { setField('f_dob', formatDob(d.dob)); if ($('#row_dob')) $('#row_dob').hidden = false; }
-    if (d.disability) { setField('f_disability', d.disability); if ($('#row_disability')) $('#row_disability').hidden = false; }
-    setField('f_period', d.academic_year ? ('السنة التربوية ' + d.academic_year.replace('-', '–')) : 'السنة التربوية 2026–2027');
-    // زر دخول الولي: اسم المستخدم (اسم الطالب بالفرنسية + رقم قيده) يُملأ تلقائيًا في صفحة الدخول
-    try {
-      var un = window.DEUser && DEUser.username(d.full_name, d.membership_no);
-      var claim = $('#btnClaim');
-      if (un && claim) claim.setAttribute('href', 'parent.html?u=' + encodeURIComponent(un));
-      if (un) { setField('f_user', un); var ur = $('#userRow'); if (ur) ur.hidden = false; }
-    } catch (e) { /* يبقى الرابط العام */ }
+setField('f_period', d.academic_year ? ('السنة التربوية ' + d.academic_year.replace('-', '–')) : 'السنة التربوية 2026–2027');
+    // Privacy: never derive or reveal a login identifier from public card data.
+    var claim = $('#btnClaim');
+    if (claim) claim.setAttribute('href', '../01_Parents_Portal/parent.html');
     $('#loading').hidden = true;
     $('#studentData').hidden = false;
   }
@@ -54,28 +47,22 @@
 
     if (!token && !legacyId) return showError(INVALID);
     if (token && !/^[0-9a-f]{32}$/.test(token)) return showError(INVALID);
-    if (!token && !(window.DE && DE.isUuid(legacyId))) return showError(INVALID);
+    if (!token) return showError('هذه بطاقة قديمة أو رابط غير مدعوم. يرجى طلب بطاقة QR محدثة من إدارة المركز.');
     if (!CFG.supabaseUrl || !CFG.supabaseKey) return showError('إعدادات الاتصال غير مضبوطة.');
 
     try {
       var client = DE.Client(CFG, 'de_qr_session');
       if (token) {
-        var res = await client.rpc('public_child_card', { p_token: token });
+        var res = await client.rpc('public_child_card_safe', { p_token: token });
         if (!res || res.found !== true) return showError(NOT_FOUND);
         showCard({
           membership_no: res.membership_no || res.member_no,
           full_name: res.full_name,
           center: res.center,
-          section: res.section,
-          dob: res.dob,
-          disability: res.disability,
           academic_year: res.academic_year
         });
       } else {
-        // رابط قديم مطبوع قبل التحديث: نعرض الحقول العامة نفسها فقط
-        var old = await client.rpc('get_public_child', { p_uuid: legacyId });
-        if (!old || !old.full_name) return showError(NOT_FOUND);
-        showCard({ membership_no: old.membership_no, full_name: old.full_name, centerLabel: old.branch, section: null });
+        return showError('هذه بطاقة قديمة أو رابط غير مدعوم. يرجى طلب بطاقة QR محدثة من إدارة المركز.');
       }
     } catch (err) {
       showError('تعذّر التحقق من البطاقة. تأكد من اتصال الإنترنت ثم أعد تحميل الصفحة.');
