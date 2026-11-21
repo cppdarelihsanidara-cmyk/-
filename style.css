@@ -245,9 +245,9 @@ select {
   max-width: 1632px;
   margin: 0 auto;
   min-height: 0;
-  aspect-ratio: 1632 / 656;
-  background-image: url('cover.jpg');
-  background-size: cover;
+  aspect-ratio: 3 / 1;
+  background-image: url('cover.jpg?v=20261121');
+  background-size: 100% 100%;
   background-position: center center;
   background-repeat: no-repeat;
   border: 0;
@@ -974,11 +974,11 @@ footer p {
   /* أبعاد البانر الترحيبي على الهاتف: توازن ممتاز يبرز الصورة بوضوح */
   .hero-cover {
     width: 100%;
-    min-height: 220px;
-    height: 52vw;
-    max-height: 320px;
-    aspect-ratio: auto;
-    background-size: cover;
+    min-height: 0;
+    height: auto;
+    max-height: none;
+    aspect-ratio: 3 / 1;
+    background-size: 100% 100%;
     background-position: center center;
     border-radius: 0 0 16px 16px;
   }

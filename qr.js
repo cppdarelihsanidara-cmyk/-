@@ -32,7 +32,7 @@
 setField('f_period', d.academic_year ? ('السنة التربوية ' + d.academic_year.replace('-', '–')) : 'السنة التربوية 2026–2027');
     // Privacy: never derive or reveal a login identifier from public card data.
     var claim = $('#btnClaim');
-    if (claim) claim.setAttribute('href', '../01_Parents_Portal/parent.html');
+    if (claim) claim.setAttribute('href', '../Parents-main/parent.html');
     $('#loading').hidden = true;
     $('#studentData').hidden = false;
   }

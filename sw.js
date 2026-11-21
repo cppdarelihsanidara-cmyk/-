@@ -2,7 +2,7 @@
    لا يلمس أي طلب إلى Supabase أو أي نطاق آخر، ولا طلبات غير GET، فلا تُخزَّن بيانات الأطفال أو الأولياء أبدًا.
    الاستراتيجية: الشبكة أولًا ثم النسخة المخزَّنة عند انقطاع الاتصال. غيّر CACHE عند كل إصدار جديد. */
 'use strict';
-var CACHE = 'de-shell-security-20261102-v3';
+var CACHE = 'de-shell-darelih-san-20261121-v4';
 var SHELL = [
   "./", "index.html", "site.html", "icons.js", "icons.css", "qr.html",
   "404.html", "style.css", "cms.css", "portal.css", "qr.css", "pwa.css",

@@ -95,10 +95,8 @@
     var imgs = content && isObj(content.images) ? content.images : {};
     var cover = document.querySelector('.hero-cover');
     if (cover) {
-      var defBg = remember(cover, 'Bg', function () { return cover.style.backgroundImage || ''; });
-      var cu = mediaUrl(imgs.cover);
-      if (cu) preload(cu, function () { cover.style.backgroundImage = 'url("' + cu + '")'; });
-      else cover.style.backgroundImage = defBg;
+      // Hero image is fixed to the approved Dar El Ihsan banner to avoid a second image flashing in after CMS loads.
+      cover.style.backgroundImage = 'url("cover.jpg?v=20261121")';
     }
     document.querySelectorAll('img[data-cms-img]').forEach(function (img) {
       var def = remember(img, 'Src', function () { return img.getAttribute('src'); });
