@@ -30,6 +30,7 @@
 <script src="pwa.js" defer></script>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="crystal-blue-glass.css?v=20261121_v18">
+  <link rel="stylesheet" href="dar-ihsan-glass.css?v=20261124">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -68,8 +69,7 @@
       <a href="#annexes" data-i18n="navAnnexes"></a>
       <a href="#goals" data-i18n="navGoals"></a>
       <a href="#contact" data-i18n="navContact"></a>
-      <a href="../Parents-main/parent.html" data-i18n="navParent">فضاء الأولياء</a>
-    </nav>
+        </nav>
 
     <button id="lang" class="lang" type="button" aria-label="Switch language">
       <i data-i="globe"></i>
@@ -88,7 +88,7 @@
   <div class="welcome-card-wrap">
     <div class="welcome-card">
       <h1 class="welcome-title" data-i18n="heroTitle">مرحبًا بكم في المركز النفسي البيداغوجي دار الإحسان</h1>
-      <p class="welcome-sub">مؤسسة تربوية وإنسانية رائدة في مرافقة وتأهيل الأطفال ذوي الاحتياجات الخاصة</p>
+      <p class="welcome-sub" data-i18n="welcomeSub">مؤسسة تربوية وإنسانية رائدة في مرافقة وتأهيل الأطفال ذوي الاحتياجات الخاصة</p>
     </div>
   </div>
 
@@ -162,17 +162,17 @@
     <div class="wrap">
       <div class="cta-bottom-card">
         <div class="cta-bottom-text">
-          <h2 class="cta-bottom-title">انضم إلينا أو تواصل مع إدارة دار الإحسان</h2>
-          <p class="cta-bottom-sub">نستقبل طلبات تسجيل الأطفال الجدد واستفسارات الأولياء والمهتمين بمرافقة أطفالنا وفق النموذج البيداغوجي المعتمد.</p>
+          <h2 class="cta-bottom-title" data-i18n="ctaBottomTitle">انضم إلينا أو تواصل مع إدارة دار الإحسان</h2>
+          <p class="cta-bottom-sub" data-i18n="ctaBottomSub">نستقبل طلبات تسجيل الأطفال الجدد واستفسارات الأولياء والمهتمين بمرافقة أطفالنا وفق النموذج البيداغوجي المعتمد.</p>
         </div>
         <div class="cta-bottom-btns">
           <button type="button" class="btn-cta-gold" id="btnBottomReg" onclick="window.openRegModal && window.openRegModal()">
             <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14h6"/><path d="M9 18h6"/><path d="M9 10h6"/></svg>
-            <span>طلب تسجيل جديد</span>
+            <span data-i18n="btnNewReg">طلب تسجيل جديد</span>
           </button>
           <button type="button" class="btn-cta-light" id="btnBottomInq" onclick="window.openInqModal && window.openInqModal()">
             <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <span>تقديم استفسار</span>
+            <span data-i18n="btnNewInq">تقديم استفسار</span>
           </button>
         </div>
       </div>
@@ -210,8 +210,8 @@
     <div class="public-modal-box" role="dialog" aria-modal="true" aria-labelledby="regModalTitle">
       <div class="public-modal-head">
         <div>
-          <h2 id="regModalTitle">استمارة طلب تسجيل أولي جديد</h2>
-          <p class="muted">مخصصة للأولياء الراغبين في تسجيل أبنائهم في جمعية دار الإحسان</p>
+          <h2 id="regModalTitle" data-i18n="regModalTitle">استمارة طلب تسجيل أولي جديد</h2>
+          <p class="muted" data-i18n="regModalSub">مخصصة للأولياء الراغبين في تسجيل أبنائهم في جمعية دار الإحسان</p>
         </div>
         <button type="button" class="btn-modal-close" id="btnCloseRegModal" onclick="window.closeRegModal && window.closeRegModal()" aria-label="إغلاق">&times;</button>
       </div>
@@ -220,46 +220,46 @@
         <!-- حقل الحماية من الرسائل الآلية Honeypot -->
         <input type="text" name="website_url_check" class="honeypot-fld" tabindex="-1" autocomplete="off">
 
-        <h3 class="form-section-title">1. معلومات ولي الأمر</h3>
+        <h3 class="form-section-title" data-i18n="regSec1Title">1. معلومات ولي الأمر</h3>
         <div class="form-grid-2">
           <label class="form-fld">
-            <span>الاسم واللقب الكامل <em class="req">*</em></span>
+            <span><span data-i18n="lblFullName">الاسم واللقب الكامل</span> <em class="req">*</em></span>
             <input type="text" id="reg_guardian_name" required placeholder="مثال: أحمد بن محمد">
           </label>
           <label class="form-fld">
-            <span>رقم الهاتف المباشر <em class="req">*</em></span>
+            <span><span data-i18n="lblPhone">رقم الهاتف المباشر</span> <em class="req">*</em></span>
             <input type="tel" id="reg_guardian_phone" required dir="ltr" placeholder="05 / 06 / 07...">
           </label>
           <label class="form-fld">
-            <span>البريد الإلكتروني (اختياري)</span>
+            <span data-i18n="lblEmailOpt">البريد الإلكتروني (اختياري)</span>
             <input type="email" id="reg_guardian_email" dir="ltr" placeholder="example@email.com">
           </label>
           <label class="form-fld">
-            <span>مكان الإقامة: الولاية والبلدية <em class="req">*</em></span>
+            <span><span data-i18n="lblResidence">مكان الإقامة: الولاية والبلدية</span> <em class="req">*</em></span>
             <input type="text" id="reg_residence" required placeholder="مثال: غرداية - العطف">
           </label>
         </div>
 
-        <h3 class="form-section-title">2. معلومات الطفل المراد تسجيله</h3>
+        <h3 class="form-section-title" data-i18n="regSec2Title">2. معلومات الطفل المراد تسجيله</h3>
         <div class="form-grid-2">
           <label class="form-fld">
-            <span>اسم ولقب الطفل <em class="req">*</em></span>
+            <span><span data-i18n="lblChildName">اسم ولقب الطفل</span> <em class="req">*</em></span>
             <input type="text" id="reg_child_name" required placeholder="اسم ولقب الطفل">
           </label>
           <label class="form-fld">
-            <span>تاريخ الميلاد <em class="req">*</em></span>
+            <span><span data-i18n="lblDob">تاريخ الميلاد</span> <em class="req">*</em></span>
             <input type="date" id="reg_child_dob" required>
           </label>
           <label class="form-fld">
-            <span>العمر المحسوب تلقائياً</span>
+            <span data-i18n="lblAutoAge">العمر المحسوب تلقائياً</span>
             <input type="text" id="reg_child_age" readonly class="is-readonly" placeholder="يُحسب فور إدخال تاريخ الميلاد">
           </label>
           <label class="form-fld">
-            <span>نوع الإعاقة أو اضطراب النمو <em class="req">*</em></span>
+            <span><span data-i18n="lblDisability">نوع الإعاقة أو اضطراب النمو</span> <em class="req">*</em></span>
             <input type="text" id="reg_disability" placeholder="اكتب نوع الإعاقة أو الاضطراب (مثال: التوحد، متلازمة داون، تأخر ذهني...)" required>
           </label>
           <label class="form-fld wide">
-            <span>معلومات وتوجيهات إضافية عن الحالة (اختياري)</span>
+            <span data-i18n="lblExtraNotes">معلومات وتوجيهات إضافية عن الحالة (اختياري)</span>
             <textarea id="reg_extra_info" rows="3" placeholder="اذكر أي تفاصيل إضافية تود إبلاغ الفريق البيداغوجي بها…"></textarea>
           </label>
         </div>
@@ -267,17 +267,17 @@
         <div class="privacy-consent-box">
           <label class="consent-label">
             <input type="checkbox" id="reg_consent" required>
-            <span>أوافق على معالجة البيانات المقدمة لأغراض دراسة طلب التسجيل والتواصل معي من طرف إدارة جمعية دار الإحسان، وأقر بصحة المعلومات المدخلة.</span>
+            <span data-i18n="lblRegConsent">أوافق على معالجة البيانات المقدمة لأغراض دراسة طلب التسجيل والتواصل معي من طرف إدارة جمعية دار الإحسان، وأقر بصحة المعلومات المدخلة.</span>
           </label>
-          <p class="privacy-note">تنبيه: إرسال الطلب الأولي لا يمثل قبولاً نهائياً أو إنشاء حساب فوري، بل يخضع لدراسة اللجنة البيداغوجية المتخصصة.</p>
+          <p class="privacy-note" data-i18n="regPrivacyNote">تنبيه: إرسال الطلب الأولي لا يمثل قبولاً نهائياً أو إنشاء حساب فوري، بل يخضع لدراسة اللجنة البيداغوجية المتخصصة.</p>
         </div>
 
         <div id="regAlertBox" class="form-alert" hidden></div>
 
         <div class="modal-form-actions">
-          <button type="button" class="btn-cancel" id="btnCancelReg" onclick="window.closeRegModal && window.closeRegModal()">إلغاء</button>
+          <button type="button" class="btn-cancel" id="btnCancelReg" onclick="window.closeRegModal && window.closeRegModal()" data-i18n="btnCancel">إلغاء</button>
           <button type="submit" class="btn-submit-gold" id="btnSubmitReg">
-            <span>إرسال طلب التسجيل</span>
+            <span data-i18n="btnSubmitReg">إرسال طلب التسجيل</span>
           </button>
         </div>
       </form>
@@ -285,13 +285,13 @@
       <!-- بطاقة التأكيد والنجاح -->
       <div id="regSuccessCard" class="reg-success-card" hidden>
         <div class="success-icon-box">✓</div>
-        <h3>تم استلام طلبكم بنجاح</h3>
-        <p>ستقوم إدارة جمعية دار الإحسان بدراسة الطلب والتواصل معكم عند الحاجة. شكراً لثقتكم بنا.</p>
+        <h3 data-i18n="regSuccessTitle">تم استلام طلبكم بنجاح</h3>
+        <p data-i18n="regSuccessSub">ستقوم إدارة جمعية دار الإحسان بدراسة الطلب والتواصل معكم عند الحاجة. شكراً لثقتكم بنا.</p>
         <div class="ref-code-box">
-          <span>الرقم المرجعي لمتابعة طلبكم:</span>
+          <span data-i18n="lblRefNum">الرقم المرجعي لمتابعة طلبكم:</span>
           <strong id="regRefCodeDisplay">REQ-2026-0000</strong>
         </div>
-        <p class="muted small">يرجى الاحتفاظ بهذا الرقم لمتابعة التواصل مع إدارة المركز.</p>
+        <p class="muted small" data-i18n="regRefHint">يرجى الاحتفاظ بهذا الرقم لمتابعة التواصل مع إدارة المركز.</p>
         <button type="button" class="btn-cta-gold" id="btnDoneReg" onclick="window.closeRegModal && window.closeRegModal()" style="margin-top:16px;">تم</button>
       </div>
     </div>
@@ -302,8 +302,8 @@
     <div class="public-modal-box" role="dialog" aria-modal="true" aria-labelledby="inqModalTitle">
       <div class="public-modal-head">
         <div>
-          <h2 id="inqModalTitle">تقديم استفسار لإدارة دار الإحسان</h2>
-          <p class="muted">نسعد بالإجابة عن كافة تساؤلاتكم ومرافقتكم</p>
+          <h2 id="inqModalTitle" data-i18n="inqModalTitle">تقديم استفسار لإدارة دار الإحسان</h2>
+          <p class="muted" data-i18n="inqModalSub">نسعد بالإجابة عن كافة تساؤلاتكم ومرافقتكم</p>
         </div>
         <button type="button" class="btn-modal-close" id="btnCloseInqModal" onclick="window.closeInqModal && window.closeInqModal()" aria-label="إغلاق">&times;</button>
       </div>
@@ -313,23 +313,23 @@
 
         <div class="form-grid-2">
           <label class="form-fld">
-            <span>الاسم واللقب <em class="req">*</em></span>
+            <span><span data-i18n="lblName">الاسم واللقب</span> <em class="req">*</em></span>
             <input type="text" id="inq_name" required placeholder="الاسم واللقب">
           </label>
           <label class="form-fld">
-            <span>رقم الهاتف المباشر <em class="req">*</em></span>
+            <span><span data-i18n="lblPhone">رقم الهاتف المباشر</span> <em class="req">*</em></span>
             <input type="tel" id="inq_phone" required dir="ltr" placeholder="05 / 06 / 07...">
           </label>
           <label class="form-fld wide">
-            <span>البريد الإلكتروني (اختياري)</span>
+            <span data-i18n="lblEmailOpt">البريد الإلكتروني (اختياري)</span>
             <input type="email" id="inq_email" dir="ltr" placeholder="example@email.com">
           </label>
           <label class="form-fld wide">
-            <span>موضوع الاستفسار <em class="req">*</em></span>
+            <span><span data-i18n="lblInqSubject">موضوع الاستفسار</span> <em class="req">*</em></span>
             <input type="text" id="inq_subject" required placeholder="مثال: استفسار حول مواعيد الاستقبال وشروط التسجيل">
           </label>
           <label class="form-fld wide">
-            <span>نص الاستفسار أو الرسالة <em class="req">*</em></span>
+            <span><span data-i18n="lblInqMsg">نص الاستفسار أو الرسالة</span> <em class="req">*</em></span>
             <textarea id="inq_message" rows="4" required placeholder="اكتب استفسارك هنا بكل وضوح…"></textarea>
           </label>
         </div>
@@ -337,25 +337,25 @@
         <div class="privacy-consent-box">
           <label class="consent-label">
             <input type="checkbox" id="inq_consent" required>
-            <span>أوافق على معالجة البيانات المقدمة لأغراض الرد والتواصل بخصوص الاستفسار.</span>
+            <span data-i18n="lblInqConsent">أوافق على معالجة البيانات المقدمة لأغراض الرد والتواصل بخصوص الاستفسار.</span>
           </label>
         </div>
 
         <div id="inqAlertBox" class="form-alert" hidden></div>
 
         <div class="modal-form-actions">
-          <button type="button" class="btn-cancel" id="btnCancelInq" onclick="window.closeInqModal && window.closeInqModal()">إلغاء</button>
+          <button type="button" class="btn-cancel" id="btnCancelInq" onclick="window.closeInqModal && window.closeInqModal()" data-i18n="btnCancel">إلغاء</button>
           <button type="submit" class="btn-submit-gold" id="btnSubmitInq">
-            <span>إرسال الاستفسار</span>
+            <span data-i18n="btnSubmitInq">إرسال الاستفسار</span>
           </button>
         </div>
       </form>
 
       <div id="inqSuccessCard" class="reg-success-card" hidden>
         <div class="success-icon-box">✓</div>
-        <h3>تم استلام استفساركم بنجاح</h3>
-        <p>نشكركم على تواصلكم مع جمعية دار الإحسان. سيتم الرد على استفساركم والتواصل معكم في أقرب وقت.</p>
-        <button type="button" class="btn-cta-gold" id="btnDoneInq" onclick="window.closeInqModal && window.closeInqModal()" style="margin-top:16px;">إغلاق</button>
+        <h3 data-i18n="inqSuccessTitle">تم استلام استفساركم بنجاح</h3>
+        <p data-i18n="inqSuccessSub">نشكركم على تواصلكم مع جمعية دار الإحسان. سيتم الرد على استفساركم والتواصل معكم في أقرب وقت.</p>
+        <button type="button" class="btn-cta-gold" id="btnDoneInq" onclick="window.closeInqModal && window.closeInqModal()" style="margin-top:16px;" data-i18n="btnClose">إغلاق</button>
       </div>
     </div>
   </div>
